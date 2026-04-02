@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4 — Integumentary System | DC International Teaching Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:   #8B1A1A;
+  --primary-d: #5C0F0F;
+  --primary-l: #F9ECEC;
+  --primary-m: #C4453A;
+  --gold:      #C49A2A;
+  --gold-l:    #FDF8EC;
+  --navy:      #1A1A2E;
+  --cream:     #FAF7F2;
+  --dark:      #1A1A1A;
+  --gray:      #595959;
+  --lgray:     #F0EEEB;
+  --white:     #FFFFFF;
+  --correct:   #1A5C2E;
+  --wrong:     #8B1A1A;
+  --shadow:    0 4px 24px rgba(0,0,0,0.09);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);font-size:16px;line-height:1.7;}
+
+/* ── HEADER ── */
+.site-header{background:var(--navy);color:white;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,0.3);}
+.header-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.header-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--gold);}
+.header-sub{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px;}
+.week-badge{background:var(--primary);color:white;font-size:0.7rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.05em;}
+
+/* ── NAV ── */
+.lesson-nav{background:rgba(255,255,255,0.06);border-top:1px solid rgba(255,255,255,0.08);display:flex;overflow-x:auto;}
+.nav-btn{padding:10px 16px;background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all .2s;border-bottom:3px solid transparent;white-space:nowrap;}
+.nav-btn:hover{color:rgba(255,255,255,0.85);}
+.nav-btn.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(196,154,42,0.08);}
+
+/* ── MAIN ── */
+.main{max-width:1100px;margin:0 auto;padding:36px 24px 80px;}
+.panel{display:none;animation:fadeIn .25s ease;}
+.panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── HERO ── */
+.lesson-hero{background:var(--primary-d);border-radius:16px;padding:40px;color:white;margin-bottom:32px;position:relative;overflow:hidden;}
+.lesson-hero::after{content:'';position:absolute;right:-40px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:rgba(196,154,42,0.08);}
+.hero-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.lesson-hero h1{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1.15;margin-bottom:12px;}
+.lesson-hero p{color:rgba(255,255,255,0.7);font-size:0.95rem;max-width:560px;}
+.hero-objectives{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.obj-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 16px;}
+.obj-label{font-size:0.65rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.obj-text{font-size:0.82rem;color:rgba(255,255,255,0.8);line-height:1.5;}
+
+/* ── SECTION TITLES ── */
+.section-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--dark);margin-bottom:6px;}
+.section-sub{font-size:0.875rem;color:var(--gray);margin-bottom:28px;}
+.section-divider{height:3px;background:linear-gradient(90deg,var(--primary),var(--gold));border-radius:2px;margin-bottom:28px;}
+
+/* ── READING ARTICLE ── */
+.reading-article{background:white;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:28px;}
+.article-chapter{background:var(--primary);color:white;padding:20px 32px;}
+.article-chapter .ch-label{font-size:0.68rem;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:4px;}
+.article-chapter h2{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+.article-body{padding:32px;}
+.article-body p{font-size:0.95rem;color:var(--dark);margin-bottom:18px;line-height:1.75;}
+.article-body h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--primary);margin:28px 0 12px;}
+.article-body ul{margin:0 0 18px 24px;}
+.article-body ul li{font-size:0.93rem;color:var(--dark);margin-bottom:8px;line-height:1.6;}
+.article-body .callout{background:var(--primary-l);border-left:4px solid var(--primary);border-radius:0 10px 10px 0;padding:16px 20px;margin:24px 0;font-size:0.9rem;color:var(--primary-d);}
+.article-body .callout strong{display:block;margin-bottom:4px;font-size:0.8rem;letter-spacing:.08em;text-transform:uppercase;}
+.article-body .clinical-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.875rem;}
+.article-body .clinical-table th{background:var(--primary);color:white;padding:10px 14px;text-align:left;font-weight:600;}
+.article-body .clinical-table td{padding:10px 14px;border-bottom:1px solid var(--lgray);}
+.article-body .clinical-table tr:nth-child(even) td{background:var(--primary-l);}
+
+/* ── HOVER TERMS ── */
+.ht{color:var(--primary);font-weight:600;border-bottom:2px dotted var(--primary);cursor:help;position:relative;display:inline;}
+.ht-tip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:white;border-radius:10px;padding:12px 16px;width:260px;font-size:0.8rem;line-height:1.5;z-index:999;box-shadow:var(--shadow-lg);pointer-events:none;}
+.ht-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy);}
+.ht-tip .tip-root{color:var(--gold);font-family:'DM Mono',monospace;font-size:0.75rem;display:block;margin-bottom:4px;}
+.ht:hover .ht-tip{display:block;}
+
+/* ── CFU BLOCKS ── */
+.cfu-block{background:white;border-radius:14px;padding:28px;box-shadow:var(--shadow);margin-bottom:20px;border-left:4px solid var(--primary);}
+.cfu-label{font-size:0.68rem;font-weight:700;letter-spacing:.15em;color:var(--primary);text-transform:uppercase;margin-bottom:8px;}
+.cfu-question{font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:18px;line-height:1.4;}
+.cfu-choices{display:flex;flex-direction:column;gap:8px;}
+.cfu-choice{padding:11px 16px;border-radius:8px;border:2px solid var(--lgray);background:white;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.9rem;text-align:left;transition:all .18s;color:var(--dark);}
+.cfu-choice:hover:not(:disabled){border-color:var(--primary);background:var(--primary-l);}
+.cfu-choice.correct{background:#e8f5e9;border-color:var(--correct);color:var(--correct);font-weight:600;}
+.cfu-choice.wrong{background:#ffebee;border-color:var(--wrong);color:var(--wrong);}
+.cfu-choice.dimmed{opacity:.4;}
+.cfu-choice:disabled{cursor:default;}
+.cfu-feedback{display:none;margin-top:14px;padding:14px 16px;border-radius:8px;font-size:0.875rem;line-height:1.55;}
+.cfu-feedback.show{display:block;}
+.cfu-feedback.ok{background:#e8f5e9;color:#1b5e20;border-left:3px solid var(--correct);}
+.cfu-feedback.no{background:#ffebee;color:#7f1d1d;border-left:3px solid var(--wrong);}
+.cfu-retry{margin-top:10px;padding:6px 14px;border-radius:6px;border:none;background:var(--lgray);color:var(--gray);font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;}
+.cfu-retry:hover{background:#e0ddd8;}
+.cfu-score-bar{background:white;border-radius:12px;padding:16px 24px;margin-bottom:24px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.cfu-score-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--navy);}
+.cfu-score-lbl{font-size:0.8rem;color:var(--gray);}
+
+/* ── VOCAB GAME ── */
+.game-area{background:white;border-radius:16px;padding:32px;box-shadow:var(--shadow);margin-bottom:28px;}
+.game-tabs{display:flex;gap:8px;margin-bottom:24px;}
+.game-tab{padding:8px 18px;border-radius:24px;border:2px solid var(--lgray);background:white;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;color:var(--gray);transition:all .18s;}
+.game-tab.active{background:var(--primary);color:white;border-color:var(--primary);}
+.game-panel{display:none;}
+.game-panel.active{display:block;}
+
+/* Match game */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.match-col h4{font-size:0.75rem;font-weight:700;letter-spacing:.1em;color:var(--gray);text-transform:uppercase;margin-bottom:10px;}
+.match-item{padding:12px 16px;border-radius:8px;border:2px solid var(--lgray);background:white;cursor:pointer;font-size:0.875rem;transition:all .18s;line-height:1.4;}
+.match-item:hover{border-color:var(--primary);}
+.match-item.selected{background:var(--primary);color:white;border-color:var(--primary);}
+.match-item.matched{background:#e8f5e9;border-color:var(--correct);color:var(--correct);cursor:default;font-weight:600;}
+.match-item.wrong-flash{background:#ffebee;border-color:var(--wrong);animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+.match-score{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:16px;}
+
+/* Fill blank game */
+.fill-item{background:var(--lgray);border-radius:10px;padding:18px 20px;margin-bottom:12px;}
+.fill-sentence{font-size:0.95rem;color:var(--dark);margin-bottom:10px;line-height:1.6;}
+.fill-input{padding:8px 12px;border-radius:6px;border:2px solid var(--lgray);font-family:'DM Sans',sans-serif;font-size:0.9rem;width:200px;transition:border-color .18s;}
+.fill-input:focus{outline:none;border-color:var(--primary);}
+.fill-input.correct-in{border-color:var(--correct);background:#e8f5e9;color:var(--correct);}
+.fill-input.wrong-in{border-color:var(--wrong);background:#ffebee;color:var(--wrong);}
+.fill-check{padding:8px 18px;border-radius:6px;border:none;background:var(--primary);color:white;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;margin-left:8px;}
+.fill-hint{font-size:0.8rem;color:var(--gray);margin-top:6px;}
+
+/* Root decode game */
+.decode-item{background:white;border:2px solid var(--lgray);border-radius:12px;padding:20px 24px;margin-bottom:14px;}
+.decode-term{font-family:'DM Serif Display',serif;font-size:1.5rem;font-style:italic;color:var(--primary);margin-bottom:8px;}
+.decode-parts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.decode-part{padding:4px 12px;border-radius:20px;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:500;}
+.dp-prefix{background:#e3f2fd;color:#0d47a1;}
+.dp-root{background:var(--primary-l);color:var(--primary);}
+.dp-suffix{background:#f3e5f5;color:#6a1b9a;}
+.decode-reveal{padding:8px 16px;border-radius:6px;border:2px solid var(--primary);background:white;color:var(--primary);font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all .18s;}
+.decode-reveal:hover{background:var(--primary);color:white;}
+.decode-answer{display:none;margin-top:12px;padding:12px 16px;background:var(--primary-l);border-radius:8px;font-size:0.875rem;color:var(--primary-d);line-height:1.55;}
+.decode-answer.show{display:block;}
+
+/* ── RESOURCES ── */
+.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.resource-card{background:white;border-radius:14px;padding:22px;box-shadow:var(--shadow);transition:all .2s;text-decoration:none;display:block;border-top:4px solid var(--primary);}
+.resource-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.rc-type{font-size:0.65rem;font-weight:700;letter-spacing:.12em;color:var(--primary);text-transform:uppercase;margin-bottom:8px;}
+.rc-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--dark);margin-bottom:6px;line-height:1.3;}
+.rc-desc{font-size:0.82rem;color:var(--gray);line-height:1.5;}
+.rc-link{font-size:0.78rem;color:var(--primary);font-weight:600;margin-top:10px;display:block;}
+
+/* ── PRACTICAL APPLICATION ── */
+.scenario-card{background:var(--navy);border-radius:16px;padding:32px;color:white;margin-bottom:24px;}
+.scenario-eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.scenario-card h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:14px;}
+.scenario-card p{font-size:0.93rem;color:rgba(255,255,255,0.8);line-height:1.7;}
+.scenario-card .vitals{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;}
+.vital-box{background:rgba(255,255,255,0.07);border-radius:8px;padding:12px;text-align:center;}
+.vital-val{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--gold);}
+.vital-lbl{font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:2px;}
+
+.task-card{background:white;border-radius:14px;padding:26px;box-shadow:var(--shadow);margin-bottom:16px;}
+.task-num{font-size:0.68rem;font-weight:700;letter-spacing:.15em;color:var(--primary);text-transform:uppercase;margin-bottom:8px;}
+.task-q{font-size:0.98rem;font-weight:600;color:var(--dark);margin-bottom:14px;line-height:1.4;}
+.task-textarea{width:100%;min-height:80px;padding:12px 14px;border-radius:8px;border:2px solid var(--lgray);font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--dark);background:var(--cream);resize:vertical;transition:border-color .18s;}
+.task-textarea:focus{outline:none;border-color:var(--primary);background:white;}
+.task-hint-btn{padding:6px 14px;border-radius:6px;border:1.5px solid var(--primary);background:white;color:var(--primary);font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;margin-top:10px;}
+.task-hint{display:none;margin-top:10px;padding:12px 16px;background:var(--primary-l);border-radius:8px;font-size:0.85rem;color:var(--primary-d);line-height:1.55;}
+.task-hint.show{display:block;}
+
+/* ── PROGRESS ── */
+.progress-bar-wrap{height:6px;background:var(--lgray);border-radius:3px;margin-bottom:28px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--gold));border-radius:3px;transition:width .5s ease;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .hero-objectives{grid-template-columns:1fr;}
+  .resources-grid{grid-template-columns:1fr;}
+  .match-grid{grid-template-columns:1fr;}
+  .scenario-card .vitals{grid-template-columns:repeat(2,1fr);}
+}
+@media print{.site-header,.lesson-nav{display:none!important;}.panel{display:block!important;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-title">DC International Teaching Hospital</div>
+      <div class="header-sub">Health Science II · Phase 2: Trauma & Structure</div>
+    </div>
+    <div class="week-badge">WEEK 4 · INTEGUMENTARY</div>
+  </div>
+  <nav class="lesson-nav">
+    <button class="nav-btn active" onclick="showPanel('reading')">📖 Reading</button>
+    <button class="nav-btn" onclick="showPanel('cfu')">✅ Check for Understanding</button>
+    <button class="nav-btn" onclick="showPanel('vocab')">🎮 Vocabulary Games</button>
+    <button class="nav-btn" onclick="showPanel('resources')">🔗 Resources</button>
+    <button class="nav-btn" onclick="showPanel('apply')">🏥 Apply It</button>
+  </nav>
+</header>
+
+<main class="main">
+
+<!-- READING -->
+<div id="reading" class="panel active">
+  <div class="lesson-hero">
+    <div class="hero-eyebrow">Lesson 10–12 · Grand Rounds + Clinic/OR Lab + M&M Conference</div>
+    <h1>The Integumentary System:<br>Your Skin as a Clinical Tool</h1>
+    <p>The skin is the body's largest organ and first line of defense — and the most common site of injury in the ER. This reading covers skin anatomy, wound classification, burn staging, and the clinical vocabulary you need to document every integumentary encounter.</p>
+    <div class="hero-objectives">
+      <div class="obj-card">
+        <div class="obj-label">What</div>
+        <div class="obj-text">Identify all 3 skin layers, classify wounds and burns, apply ABCDE screening</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-label">Why</div>
+        <div class="obj-text">ER clinicians assess skin integrity in every single patient encounter — from minor scrapes to full-thickness burns</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-label">How Assessed</div>
+        <div class="obj-text">EHR SOAP note entry · GimKit review · Rotation A Boards Section A & B</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 1 -->
+  <div class="reading-article">
+    <div class="article-chapter">
+      <div class="ch-label">Chapter 1 · Lessons 10–11</div>
+      <h2>Skin Anatomy: Three Layers, Every Patient</h2>
+    </div>
+    <div class="article-body">
+      <p>Every time you assess a patient in the ER, you are looking at their <span class="ht">integumentary system<span class="ht-tip"><span class="tip-root">Latin: integumentum (covering)</span>The organ system consisting of skin, hair, nails, and associated glands. The body's outermost protective barrier.</span></span>. Before you can classify any wound, stage any burn, or document any skin finding, you need to know exactly what you're looking at — and that means knowing the three layers.</p>
+
+      <h3>Layer 1: The Epidermis</h3>
+      <p>The <span class="ht">epidermis<span class="ht-tip"><span class="tip-root">epi- (upon) + derm/o (skin)</span>Outermost, avascular layer of skin. Contains keratinocytes and melanocytes. No blood vessels.</span></span> is the layer you can see and touch. It is the body's first physical barrier against pathogens, UV radiation, and environmental toxins. Two cell types are critical here: <span class="ht">keratinocytes<span class="ht-tip"><span class="tip-root">kerat/o (hard) + -cyte (cell)</span>Cells that produce keratin — the tough protein that makes skin waterproof.</span></span> produce <span class="ht">keratin<span class="ht-tip"><span class="tip-root">kerat/o (hard/horn-like)</span>Tough, fibrous protein that gives skin its waterproofing and protective properties.</span></span>, making skin waterproof, and <span class="ht">melanocytes<span class="ht-tip"><span class="tip-root">melan/o (dark/black) + -cyte (cell)</span>Pigment-producing cells. Produce melanin to protect against UV radiation.</span></span> produce <span class="ht">melanin<span class="ht-tip"><span class="tip-root">melan/o (dark/black)</span>Pigment produced by melanocytes. Determines skin color and protects against UV radiation damage.</span></span>, which gives skin its color and UV protection. Critically, the epidermis has <strong>no blood vessels</strong> — injuries confined to this layer bleed very little and heal without scarring.</p>
+
+      <div class="callout"><strong>Clinical Application</strong>A superficial <span class="ht">laceration<span class="ht-tip"><span class="tip-root">Latin: lacerare (to tear)</span>Jagged, irregular wound from tearing force. Requires closure — sutures or staples.</span></span> confined to the epidermis does not require suturing. An <span class="ht">abrasion<span class="ht-tip"><span class="tip-root">Latin: abradere (to scrape off)</span>Superficial wound from scraping. Involves only the epidermis. Often called "road rash."</span></span> (road rash) is a classic epidermal injury — clean it, dress it, no closure needed.</div>
+
+      <h3>Layer 2: The Dermis</h3>
+      <p>Below the epidermis lies the <span class="ht">dermis<span class="ht-tip"><span class="tip-root">derm/o (skin)</span>Middle skin layer. Contains blood vessels, nerves, hair follicles, sebaceous glands, and sweat glands.</span></span>, a much thicker layer packed with clinical structures. Blood vessels here are why deep wounds bleed significantly. Nerve endings explain why dermal injuries are painful. The dermis also contains <span class="ht">sebaceous glands<span class="ht-tip"><span class="tip-root">seb/o (oil/sebum)</span>Oil-secreting glands that lubricate skin and hair. When blocked, they cause acne.</span></span>, which produce sebum to lubricate skin and hair, and <span class="ht">sudoriferous glands<span class="ht-tip"><span class="tip-root">sudor- (sweat) + -ferous (bearing)</span>Sweat glands that regulate body temperature through evaporative cooling.</span></span> (sweat glands) that regulate temperature. When a wound penetrates into the dermis, suturing is required to restore skin integrity and prevent scarring.</p>
+
+      <h3>Layer 3: The Hypodermis</h3>
+      <p>The deepest layer, the <span class="ht">hypodermis<span class="ht-tip"><span class="tip-root">hypo- (below) + derm/o (skin)</span>Deepest skin layer. Primarily adipose (fat) tissue. Also called the subcutaneous layer.</span></span>, is primarily adipose tissue. It connects skin to underlying muscle and bone, provides thermal insulation, and stores energy. You'll encounter this layer clinically in two situations: <span class="ht">subcutaneous<span class="ht-tip"><span class="tip-root">sub- (below) + cutane/o (skin)</span>Pertaining to beneath the skin. The hypodermis layer.</span></span> injections (insulin, vaccines) target this layer, and third-degree burns extend into it.</p>
+
+      <table class="clinical-table">
+        <thead><tr><th>Layer</th><th>Root Word</th><th>Key Contents</th><th>Clinical Significance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Epidermis</strong></td><td>epi- + derm/o</td><td>Keratinocytes, melanocytes</td><td>No vessels — superficial injuries don't bleed much</td></tr>
+          <tr><td><strong>Dermis</strong></td><td>derm/o</td><td>Blood vessels, nerves, glands, follicles</td><td>Deep injuries bleed; sutures required</td></tr>
+          <tr><td><strong>Hypodermis</strong></td><td>hypo- + derm/o</td><td>Adipose tissue, large vessels</td><td>Subcut injections; 3rd degree burns reach here</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Chapter 2 -->
+  <div class="reading-article">
+    <div class="article-chapter">
+      <div class="ch-label">Chapter 2 · Lesson 11</div>
+      <h2>Wounds, Burns & Healing: The ER Assessment Framework</h2>
+    </div>
+    <div class="article-body">
+      <h3>Wound Classification</h3>
+      <p>In the ER, you'll document wounds using precise clinical terms — not "cut" or "bruise." The five wound types you must know are distinguished by mechanism and depth.</p>
+      <p>A <span class="ht">laceration<span class="ht-tip"><span class="tip-root">Latin: lacerare (to tear)</span>Jagged, irregular wound from tearing force. Dermis is exposed. Requires suture closure.</span></span> is an irregular, jagged tear — think fence, broken glass, or sharp metal. A <span class="ht">contusion<span class="ht-tip"><span class="tip-root">Latin: contundere (to bruise)</span>Closed wound from blunt force. Intact skin but subcutaneous bleeding. Also called a bruise.</span></span> is a blunt-force bruise with intact skin. An <span class="ht">abrasion<span class="ht-tip"><span class="tip-root">Latin: abradere (to scrape off)</span>Superficial scraping wound of the epidermis. No closure required.</span></span> is superficial scraping of the epidermis. <span class="ht">Ecchymosis<span class="ht-tip"><span class="tip-root">Greek: ek- (out) + chymos (juice) + -osis</span>Larger bruise — discoloration from blood tracking under the skin into subcutaneous tissue.</span></span> refers to larger bruising where blood tracks under the skin, and a <span class="ht">hematoma<span class="ht-tip"><span class="tip-root">hemat/o (blood) + -oma (mass)</span>Localized collection of blood outside blood vessels. Palpable as a raised, tender mass.</span></span> is a palpable collection of blood outside vessels — larger and more raised than ecchymosis.</p>
+
+      <h3>Burn Staging: Four Degrees of Severity</h3>
+      <p>Burn classification is one of the most tested skills on the Rotation A Boards because the clinical signs are very specific and the treatment decisions depend entirely on accurate staging. The key differentiators are: depth of tissue involvement, presence or absence of blisters, skin appearance, and pain level.</p>
+
+      <table class="clinical-table">
+        <thead><tr><th>Degree</th><th>Layers Affected</th><th>Key Signs</th><th>Blister?</th><th>Pain?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1st — Superficial</strong></td><td>Epidermis only</td><td>Red, DRY, warm</td><td>No</td><td>Yes — intense</td></tr>
+          <tr><td><strong>2nd — Partial Thickness</strong></td><td>Epidermis + upper dermis</td><td>Blisters, moist, red</td><td>Yes ✓</td><td>Yes — severe</td></tr>
+          <tr><td><strong>3rd — Full Thickness</strong></td><td>All skin layers</td><td>Leathery, waxy, white/charred</td><td>No</td><td>None (nerves destroyed)</td></tr>
+          <tr><td><strong>4th — Deep</strong></td><td>Skin + muscle/bone/tendon</td><td>Black, charred, life-threatening</td><td>No</td><td>None</td></tr>
+        </tbody>
+      </table>
+
+      <p>When a 3rd or 4th degree burn patient reports <em>no pain at the burn site</em>, this is because the nerve endings in the dermis have been completely destroyed. The surrounding unburned tissue, however, is intensely painful because those nerve endings are intact and responding to the heat exposure. This apparent paradox — no pain at the worst burn site — is a critical clinical finding.</p>
+
+      <p>The <strong>Rule of Nines</strong> calculates <span class="ht">TBSA<span class="ht-tip"><span class="tip-root">Abbreviation: Total Body Surface Area</span>The percentage of body surface affected by burns. Used to calculate fluid resuscitation needs.</span></span> — the percentage of body surface affected: each arm = 9%, each leg = 18%, head = 9%, anterior trunk = 18%, posterior trunk = 18%, perineum = 1%. TBSA drives IV fluid resuscitation orders and determines whether ICU admission is required.</p>
+
+      <h3>Wound Healing: Three Phases</h3>
+      <p>After wound closure, healing follows a predictable sequence. The <strong>inflammatory phase</strong> (days 1–4) brings <span class="ht">erythema<span class="ht-tip"><span class="tip-root">Greek: erythros (red)</span>Redness of skin from vasodilation. Normal in early wound healing, but extending beyond wound margins may indicate infection.</span></span>, warmth, and swelling — normal, protective responses. The <strong>proliferative phase</strong> (days 4–21) builds <span class="ht">granulation<span class="ht-tip"><span class="tip-root">Latin: granulum (small grain)</span>New connective tissue and blood vessels forming in a healing wound. Appears beefy-red and healthy.</span></span> tissue — the beefy-red base you want to see in a healing wound. The <strong>remodeling phase</strong> can last up to 2 years as collagen reorganizes into scar tissue. When healing fails — from infection, poor blood supply, or necrosis — you may need <span class="ht">debridement<span class="ht-tip"><span class="tip-root">French: débrider (to unbridle)</span>Surgical or bedside removal of dead, damaged, or infected tissue to allow healthy healing.</span></span> to remove dead tissue, including <span class="ht">eschar<span class="ht-tip"><span class="tip-root">Greek: eschara (scab)</span>Dry, dark, leathery crust of dead tissue over a burn or deep wound. Must be removed for healing to proceed.</span></span>.</p>
+
+      <div class="callout"><strong>Signs of Wound Infection</strong>Healthy healing = decreasing erythema, granulation tissue, no odor. Infection = <span class="ht">purulence<span class="ht-tip"><span class="tip-root">Latin: pus + -ulent</span>Pus formation — thick yellow-green fluid containing dead WBCs and bacteria. Clear sign of infection.</span></span> (pus), spreading erythema, warmth, increased pain, fever. Document: <em>"Purulent discharge noted at wound margins — culture ordered, IV antibiotics initiated."</em></div>
+    </div>
+  </div>
+
+  <!-- Chapter 3 -->
+  <div class="reading-article">
+    <div class="article-chapter">
+      <div class="ch-label">Chapter 3 · Lesson 10 + M&M Conference</div>
+      <h2>ABCDE Melanoma Screening & Pressure Ulcer Staging</h2>
+    </div>
+    <div class="article-body">
+      <h3>ABCDE: The Melanoma Screening Tool</h3>
+      <p><span class="ht">Melanoma<span class="ht-tip"><span class="tip-root">melan/o (dark/black) + -oma (tumor)</span>Malignant tumor of melanocytes. Most dangerous form of skin cancer — highly metastatic if caught late.</span></span> is the most dangerous form of skin cancer, arising from <span class="ht">melanocytes<span class="ht-tip"><span class="tip-root">melan/o (dark) + -cyte (cell)</span>Pigment-producing cells in the epidermis. Source of melanoma tumors.</span></span>. The ABCDE mnemonic gives you a systematic assessment tool for any suspicious skin lesion:</p>
+      <ul>
+        <li><strong>A — Asymmetry:</strong> One half of the lesion does not match the other. Benign moles are symmetrical.</li>
+        <li><strong>B — Border:</strong> Irregular, ragged, notched, or blurred edges. Benign moles have smooth, even borders.</li>
+        <li><strong>C — Color:</strong> Multiple shades (brown, black, red, white, or blue) within one lesion.</li>
+        <li><strong>D — Diameter:</strong> Greater than 6mm (pencil eraser size) — though melanomas can be smaller when first detected.</li>
+        <li><strong>E — Evolution:</strong> Any change in size, shape, color, or new symptoms (bleeding, crusting, itching) over time.</li>
+      </ul>
+      <p>Document your ABCDE findings fully: <em>"9mm lesion, left shoulder. Asymmetric. Borders irregular with satellite lesion noted. Variegated pigmentation: brown, black, and focal red area. Evolution: patient reports lesion has darkened over 3 months. Dermatology referral placed."</em></p>
+
+      <h3>Pressure Ulcer Staging (I–IV)</h3>
+      <p>Pressure ulcers form when sustained pressure reduces blood flow to tissue, typically over bony prominences (sacrum, heels, occiput). Staging is determined by the depth of tissue involvement:</p>
+      <ul>
+        <li><strong>Stage I:</strong> Intact skin with non-blanchable redness. Skin appears darker in pigmented patients.</li>
+        <li><strong>Stage II:</strong> Partial thickness loss — shallow open wound with pink/red bed, or intact blister.</li>
+        <li><strong>Stage III:</strong> Full thickness loss — subcutaneous fat visible. No bone, tendon, or muscle exposed.</li>
+        <li><strong>Stage IV:</strong> Full thickness with bone, tendon, or muscle exposed. Slough or eschar often present.</li>
+      </ul>
+      <div class="callout"><strong>Staging Rule</strong>The presence of <span class="ht">necrosis<span class="ht-tip"><span class="tip-root">necr/o (death) + -osis (condition)</span>Death of body tissue from inadequate blood supply or severe injury. Must be removed for healing.</span></span> or eschar means you cannot accurately stage a pressure ulcer — it's documented as "unstageable" until the wound is debrided and the base can be assessed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CFU -->
+<div id="cfu" class="panel">
+  <div class="section-title">Check for Understanding</div>
+  <div class="section-sub">5 clinical questions — same format as your Board Exam. Read each vignette carefully before answering.</div>
+  <div class="section-divider"></div>
+  <div class="cfu-score-bar">
+    <div><div class="cfu-score-lbl">Score</div><div class="cfu-score-num" id="cfuScore">0 / 0</div></div>
+    <div><div class="cfu-score-lbl">Accuracy</div><div class="cfu-score-num" id="cfuAcc">—</div></div>
+    <button class="cfu-retry" onclick="resetAllCFU()" style="padding:9px 18px;">Reset All</button>
+  </div>
+  <div id="cfuContainer"></div>
+</div>
+
+<!-- VOCAB GAME -->
+<div id="vocab" class="panel">
+  <div class="section-title">Vocabulary Games</div>
+  <div class="section-sub">Three ways to drill your 25 Week 4 terms. Switch between games using the tabs below.</div>
+  <div class="section-divider"></div>
+  <div class="game-area">
+    <div class="game-tabs">
+      <button class="game-tab active" onclick="showGame('match')">🔗 Term Match</button>
+      <button class="game-tab" onclick="showGame('fill')">✏️ Fill in the Blank</button>
+      <button class="game-tab" onclick="showGame('decode')">🔬 Root Decode</button>
+    </div>
+
+    <!-- MATCH GAME -->
+    <div id="match" class="game-panel active">
+      <div class="match-score">Matched: <span id="matchCount">0</span> / 8</div>
+      <div id="matchInstructions" style="font-size:0.85rem;color:var(--gray);margin-bottom:16px;">Click a term on the left, then click its matching definition on the right.</div>
+      <div class="match-grid">
+        <div>
+          <h4>Terms</h4>
+          <div id="matchTerms"></div>
+        </div>
+        <div>
+          <h4>Definitions</h4>
+          <div id="matchDefs"></div>
+        </div>
+      </div>
+      <button onclick="initMatch()" style="padding:9px 20px;border-radius:8px;border:none;background:var(--primary);color:white;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;margin-top:8px;">New Round 🔀</button>
+    </div>
+
+    <!-- FILL GAME -->
+    <div id="fill" class="game-panel">
+      <div id="fillItems"></div>
+    </div>
+
+    <!-- DECODE GAME -->
+    <div id="decode" class="game-panel">
+      <p style="font-size:0.875rem;color:var(--gray);margin-bottom:20px;">Study the word parts. Click "Reveal Meaning" to check your understanding of the full clinical definition.</p>
+      <div id="decodeItems"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<div id="resources" class="panel">
+  <div class="section-title">Resources & Further Learning</div>
+  <div class="section-sub">Websites, videos, career connections, and HOSA tools — organized by category.</div>
+  <div class="section-divider"></div>
+  <div class="resources-grid">
+    <a class="resource-card" href="https://medlineplus.gov/skininjuriesandwounds.html" target="_blank">
+      <div class="rc-type">📚 Reference</div>
+      <div class="rc-title">MedlinePlus — Skin Injuries & Wounds</div>
+      <div class="rc-desc">National Library of Medicine patient-level reference. Covers laceration care, burn treatment, wound healing — reliable, government-sourced.</div>
+      <div class="rc-link">medlineplus.gov →</div>
+    </a>
+    <a class="resource-card" href="https://www.aad.org/public/diseases/skin-cancer/types/common/melanoma/signs" target="_blank">
+      <div class="rc-type">🔬 Clinical Tool</div>
+      <div class="rc-title">AAD — ABCDE Melanoma Guide</div>
+      <div class="rc-desc">American Academy of Dermatology's official ABCDE screening guide with clinical photos. Perfect for Board Exam Section B image practice.</div>
+      <div class="rc-link">aad.org →</div>
+    </a>
+    <a class="resource-card" href="https://www.youtube.com/watch?v=iJ_IiCZSi5c" target="_blank">
+      <div class="rc-type">🎥 Tutorial Video</div>
+      <div class="rc-title">Osmosis — Skin Anatomy (YouTube)</div>
+      <div class="rc-desc">High-quality animated overview of all three skin layers, appendages, and clinical conditions. 8 minutes — excellent pre-exam review.</div>
+      <div class="rc-link">youtube.com →</div>
+    </a>
+    <a class="resource-card" href="https://www.youtube.com/watch?v=sV5-kx9b_yY" target="_blank">
+      <div class="rc-type">🎥 Lab Tutorial</div>
+      <div class="rc-title">How to Suture — Simple Interrupted</div>
+      <div class="rc-desc">Step-by-step suturing technique video. Follow along before your lab session to understand approximation, needle entry angle, and knot tying.</div>
+      <div class="rc-link">youtube.com →</div>
+    </a>
+    <a class="resource-card" href="https://www.woundcarecenters.org/article/wound-care-treatments/stages-of-wound-healing" target="_blank">
+      <div class="rc-type">🏥 Clinical Reference</div>
+      <div class="rc-title">Wound Care Centers — Healing Stages</div>
+      <div class="rc-desc">Clear breakdown of the three wound healing phases with clinical photos. Covers granulation tissue, debridement indications, and eschar management.</div>
+      <div class="rc-link">woundcarecenters.org →</div>
+    </a>
+    <a class="resource-card" href="https://hosa.org/competitive-events/" target="_blank">
+      <div class="rc-type">🏆 HOSA Prep</div>
+      <div class="rc-title">HOSA — First Aid & Medical Terminology Events</div>
+      <div class="rc-desc">Official HOSA competitive event guidelines. Your Week 4 skills (wound classification, burn staging, suturing) align directly with First Aid and CERT Skills events.</div>
+      <div class="rc-link">hosa.org →</div>
+    </a>
+    <a class="resource-card" href="https://www.bls.gov/ooh/healthcare/registered-nurses.htm" target="_blank">
+      <div class="rc-type">💼 Career</div>
+      <div class="rc-title">BLS — ER Nurse Career Profile</div>
+      <div class="rc-desc">Bureau of Labor Statistics profile for RNs. Salary, education requirements, job outlook. Integumentary assessment is a core ER nursing competency.</div>
+      <div class="rc-link">bls.gov →</div>
+    </a>
+    <a class="resource-card" href="https://www.bls.gov/ooh/healthcare/physician-assistants.htm" target="_blank">
+      <div class="rc-type">💼 Career</div>
+      <div class="rc-title">BLS — Physician Assistant Career Profile</div>
+      <div class="rc-desc">PAs perform wound closure, burn assessment, and skin procedures daily. High-growth field — 28% increase projected by 2032.</div>
+      <div class="rc-link">bls.gov →</div>
+    </a>
+    <a class="resource-card" href="https://quizlet.com/subject/integumentary-system-medical-terminology/" target="_blank">
+      <div class="rc-type">🃏 Study Tool</div>
+      <div class="rc-title">Quizlet — Integumentary Terminology Sets</div>
+      <div class="rc-desc">Search Quizlet for "integumentary medical terminology" to find student-created flashcard sets that match your formulary. Great for extra practice.</div>
+      <div class="rc-link">quizlet.com →</div>
+    </a>
+  </div>
+</div>
+
+<!-- APPLY IT -->
+<div id="apply" class="panel">
+  <div class="section-title">Apply It — Clinical Scenario</div>
+  <div class="section-sub">Read the patient scenario. Complete each task using correct clinical terminology from your Week 4 formulary.</div>
+  <div class="section-divider"></div>
+
+  <div class="scenario-card">
+    <div class="scenario-eyebrow">ER Encounter · Burn Unit → Wound Care Consult</div>
+    <h2>Patient: Marcus Williams, 17M</h2>
+    <p>Marcus arrives via EMS after a kitchen accident. He was cooking when grease from a pan splashed onto his right forearm. On assessment: the right forearm shows a 12×8cm wound area with blistering, a moist wound bed, and bright red surrounding tissue. The patient rates pain 8/10. The palm and fingers are also involved — the palm surface shows dry, bright red, intact skin with no blistering. Marcus's left arm is uninjured. He has no prior medical history.</p>
+    <div class="vitals">
+      <div class="vital-box"><div class="vital-val">128/82</div><div class="vital-lbl">Blood Pressure</div></div>
+      <div class="vital-box"><div class="vital-val">98</div><div class="vital-lbl">Heart Rate</div></div>
+      <div class="vital-box"><div class="vital-val">18</div><div class="vital-lbl">Resp Rate</div></div>
+      <div class="vital-box"><div class="vital-val">99.1°F</div><div class="vital-lbl">Temperature</div></div>
+    </div>
+  </div>
+
+  <div class="task-card">
+    <div class="task-num">Task 1 · Burn Classification</div>
+    <div class="task-q">Classify the burn on Marcus's forearm AND on his palm separately. Use clinical criteria — don't just name the degree. Explain what evidence from the scenario supports each classification.</div>
+    <textarea class="task-textarea" placeholder="Forearm: I classify this as... because... Palm: I classify this as... because..."></textarea>
+    <button class="task-hint-btn" onclick="toggleHint('h1')">💡 Show Hint</button>
+    <div id="h1" class="task-hint">Forearm: Look for the presence of blisters + moist wound bed. Palm: The skin is dry with no blisters — which layer is involved? Remember: the degree is determined by depth of injury, not by pain level alone.</div>
+  </div>
+
+  <div class="task-card">
+    <div class="task-num">Task 2 · TBSA Calculation</div>
+    <div class="task-q">Using the Rule of Nines, estimate the TBSA for Marcus's burns. Show your calculation. Note: the forearm is approximately 1/2 of the arm's total 9%, and the palm is approximately 1% TBSA.</div>
+    <textarea class="task-textarea" placeholder="Right forearm: approximately __% TBSA (half of arm = 9%/2 = __)&#10;Right palm: approximately __% TBSA&#10;TOTAL: __ + __ = __% TBSA"></textarea>
+    <button class="task-hint-btn" onclick="toggleHint('h2')">💡 Show Hint</button>
+    <div id="h2" class="task-hint">Each entire arm = 9%. The forearm alone is roughly half of that = 4.5%. The palm = approximately 1%. Total TBSA = approximately 5.5%. This matters because TBSA &gt;20% typically requires IV fluid resuscitation — Marcus is below that threshold but still needs monitoring.</div>
+  </div>
+
+  <div class="task-card">
+    <div class="task-num">Task 3 · Wound Healing Prediction</div>
+    <div class="task-q">Predict what the wound healing process will look like for Marcus's forearm burn over the next 3 weeks. Name each healing phase, the expected clinical signs during that phase, and what you would document in the EHR at each follow-up.</div>
+    <textarea class="task-textarea" placeholder="Phase 1 (Days 1-4) — Inflammatory: Expected signs... Document...&#10;Phase 2 (Days 4-21) — Proliferative: Expected signs... Document...&#10;Phase 3 (Week 3+) — Remodeling: Expected signs... Document..." rows="5"></textarea>
+    <button class="task-hint-btn" onclick="toggleHint('h3')">💡 Show Hint</button>
+    <div id="h3" class="task-hint">Phase 1 should show erythema and edema expanding slightly before decreasing. Phase 2 — watch for granulation tissue developing in the wound bed (beefy-red, moist). Phase 3 — the wound contracts and scar tissue forms. If you see eschar or purulence at any point, that signals a complication requiring debridement or antibiotics.</div>
+  </div>
+
+  <div class="task-card">
+    <div class="task-num">Task 4 · SOAP Note — Objective Section</div>
+    <div class="task-q">Write the Objective (O) section of Marcus's SOAP note. Include all vitals provided, a complete wound description using correct clinical terminology, and any additional physical examination findings implied by the scenario. Use at least 6 Week 4 terms correctly.</div>
+    <textarea class="task-textarea" placeholder="O: Vitals: BP ___, HR ___, RR ___, Temp ___. Physical exam: Right forearm demonstrates... Surrounding tissue shows... Palm surface: ..." rows="6"></textarea>
+    <button class="task-hint-btn" onclick="toggleHint('h4')">💡 Show Hint</button>
+    <div id="h4" class="task-hint">Key terms to include: erythema (surrounding tissue), blisters/blistering, moist wound bed, TBSA, the burn degrees for each area, ecchymosis (if any bruising noted), dermis/epidermis in your description of depth. Format: state the facts, not your interpretation — that goes in Assessment (A).</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── NAV ──────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const order=['reading','cfu','vocab','resources','apply'];
+  document.querySelectorAll('.nav-btn')[order.indexOf(id)].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── CFU DATA ─────────────────────────────────────────
+const cfuData = [
+  {
+    vignette:"A nurse is documenting a patient who fell asleep at the beach for 4 hours. Assessment: both forearms are bright RED, warm to touch. The skin is DRY with NO BLISTERS. Patient rates pain 6/10.",
+    q:"What is the correct burn classification?",
+    choices:["A. Second-degree (partial thickness) — blisters and moist wound bed","B. First-degree (superficial) — epidermis only, dry, no blisters","C. Third-degree (full thickness) — nerve damage, no pain","D. Fourth-degree — extends to bone and tendon"],
+    answer:1,
+    fb_right:"✓ Correct! 1st degree = epidermis only. KEY identifiers: DRY skin, NO blisters, painful, erythema only. Sunburn is the classic example.",
+    fb_wrong:"The KEY clues are DRY skin and NO BLISTERS. Blisters = 2nd degree. Painless + leathery = 3rd degree. The dry, red, painful presentation = 1st degree (superficial). Only the epidermis is involved."
+  },
+  {
+    vignette:"ER documentation reads: '6cm wound, IRREGULAR JAGGED EDGES, wound bed visible, dermis exposed, hemorrhage controlled with direct pressure. Patient reports falling onto a broken fence post.'",
+    q:"Which wound type is MOST accurately described?",
+    choices:["A. Contusion — blunt force, bruising, intact skin","B. Abrasion — superficial scraping of the epidermis only","C. Laceration — jagged tear with irregular edges, dermis exposed","D. Ecchymosis — blood tracking under the skin"],
+    answer:2,
+    fb_right:"✓ Correct! Laceration = jagged/irregular tear from a tearing mechanism. Irregular edges and exposed dermis are the defining features.",
+    fb_wrong:"Laceration = jagged/irregular tear (fence, glass, sharp metal). Contusion = blunt force bruise with INTACT skin. Abrasion = surface scraping (epidermis only, no deep exposure). Ecchymosis = bruise discoloration — not an open wound."
+  },
+  {
+    vignette:"A patient in the burn unit has burns covering BOTH ENTIRE LEGS and the ANTERIOR TRUNK. The team is calculating TBSA to determine fluid resuscitation requirements.",
+    q:"Using the Rule of Nines, what is the total TBSA burned?",
+    choices:["A. 18%","B. 27%","C. 36%","D. 54%"],
+    answer:3,
+    fb_right:"✓ Correct! Each leg = 18% × 2 = 36%. Anterior trunk = 18%. Total = 54%. TBSA above 20% triggers IV fluid resuscitation per the Parkland Formula.",
+    fb_wrong:"Rule of Nines: Each LEG = 18% (not 9%). Both legs = 36%. Anterior trunk = 18%. 36 + 18 = 54%. Common error: confusing each LEG = 18% with each ARM = 9%."
+  },
+  {
+    vignette:"A home health nurse assesses a bedbound patient who has been immobile for 6 weeks. At the sacrum: a wound with SUBCUTANEOUS FAT visible in the wound bed. No bone, tendon, or muscle is exposed.",
+    q:"What pressure ulcer stage is this?",
+    choices:["A. Stage I — non-blanchable redness, intact skin","B. Stage II — partial thickness, shallow open wound or blister","C. Stage III — full thickness, subcutaneous fat visible, no deep structure exposure","D. Stage IV — bone, tendon, or muscle exposed"],
+    answer:2,
+    fb_right:"✓ Correct! Stage III = full thickness skin loss with subcutaneous fat visible. The key: fat IS visible, but bone/tendon/muscle is NOT. Stage IV adds those deep structure exposures.",
+    fb_wrong:"Stage III = fat visible, no bone. Stage IV = bone/tendon/muscle exposed. Stage II = partial thickness only (blister or shallow wound — no fat visible). Stage I = intact skin with non-blanchable redness only."
+  },
+  {
+    vignette:"A radiology report reads: 'Melanocyte proliferation in a 9mm asymmetrical lesion with variegated pigmentation and irregular borders on the left shoulder.' The intern needs to explain the root word melan/o to the patient.",
+    q:"The combining form melan/o means:",
+    choices:["A. Skin or cutaneous surface","B. Dark or black pigment","C. Oil or sebaceous secretion","D. Hard or keratinized tissue"],
+    answer:1,
+    fb_right:"✓ Correct! melan/o = dark/black. Melanocytes are the pigment-producing cells of the epidermis. Melanoma = tumor of melanocytes = dark/malignant tumor.",
+    fb_wrong:"melan/o = dark/black (think 'melanin' — the pigment). derm/o or cutane/o = skin. seb/o = oil/sebum. kerat/o = hard/keratinized tissue. Root words are your clinical decoder ring — learn them cold."
+  }
+];
+
+let cfuScores = {correct:0,total:0};
+
+function buildCFU() {
+  const container = document.getElementById('cfuContainer');
+  cfuData.forEach((q,qi) => {
+    const div = document.createElement('div');
+    div.className='cfu-block';
+    div.id=`cfu_${qi}`;
+    const choicesHtml = q.choices.map((ch,ci)=>
+      `<button class="cfu-choice" data-qi="${qi}" data-ci="${ci}" onclick="answerCFU(${qi},${ci})">${ch}</button>`
+    ).join('');
+    div.innerHTML=`
+      <div class="cfu-label">Question ${qi+1} of 5 · Week 4 — Integumentary</div>
+      <div style="background:var(--primary-l);border-left:3px solid var(--primary);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.875rem;color:var(--gray);font-style:italic;line-height:1.6">${q.vignette}</div>
+      <div class="cfu-question">${q.q}</div>
+      <div class="cfu-choices">${choicesHtml}</div>
+      <div class="cfu-feedback" id="cfufb_${qi}"></div>
+      <button class="cfu-retry" id="cfuretry_${qi}" style="display:none" onclick="retryCFU(${qi})">↺ Try Again</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function answerCFU(qi,ci) {
+  const q=cfuData[qi];
+  const isRight=ci===q.answer;
+  document.querySelectorAll(`[data-qi="${qi}"]`).forEach((btn,i)=>{
+    btn.disabled=true;
+    if(i===q.answer)btn.classList.add('correct');
+    else if(i===ci&&!isRight)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById(`cfufb_${qi}`);
+  fb.className='cfu-feedback show '+(isRight?'ok':'no');
+  fb.innerHTML=isRight?`<strong>✓ Correct!</strong> ${q.fb_right}`:`<strong>✗ Not quite.</strong> ${q.fb_wrong}`;
+  document.getElementById(`cfuretry_${qi}`).style.display='inline-block';
+  cfuScores.total++;
+  if(isRight)cfuScores.correct++;
+  updateCFUScore();
+}
+
+function retryCFU(qi) {
+  document.querySelectorAll(`[data-qi="${qi}"]`).forEach(btn=>{btn.disabled=false;btn.className='cfu-choice';});
+  document.getElementById(`cfufb_${qi}`).className='cfu-feedback';
+  document.getElementById(`cfuretry_${qi}`).style.display='none';
+}
+
+function resetAllCFU(){cfuScores={correct:0,total:0};cfuData.forEach((_,qi)=>retryCFU(qi));updateCFUScore();}
+function updateCFUScore(){
+  document.getElementById('cfuScore').textContent=`${cfuScores.correct} / ${cfuScores.total}`;
+  document.getElementById('cfuAcc').textContent=cfuScores.total>0?Math.round(cfuScores.correct/cfuScores.total*100)+'%':'—';
+}
+
+// ── VOCAB GAME DATA ───────────────────────────────────
+const matchPairs = [
+  {term:'epidermis',def:'Outermost skin layer — no blood vessels; contains melanocytes'},
+  {term:'dermis',def:'Middle skin layer — blood vessels, nerves, sebaceous & sweat glands'},
+  {term:'hypodermis',def:'Deepest layer — adipose tissue; also called subcutaneous'},
+  {term:'laceration',def:'Jagged, irregular wound from a tearing force requiring closure'},
+  {term:'ecchymosis',def:'Bruise — blood tracks under the skin; discoloration'},
+  {term:'eschar',def:'Dry, leathery crust of dead tissue over a burn or deep wound'},
+  {term:'granulation',def:'New connective tissue and blood vessels forming in a healing wound'},
+  {term:'debridement',def:'Removal of dead or infected tissue to allow healthy healing'},
+  {term:'erythema',def:'Redness from vasodilation — sign of inflammation or 1st degree burn'},
+  {term:'hematoma',def:'Localized collection of blood outside blood vessels — palpable mass'},
+  {term:'purulence',def:'Pus formation — thick yellow-green fluid; sign of infection'},
+  {term:'melanoma',def:'Malignant tumor of melanocytes — most dangerous skin cancer'},
+  {term:'TBSA',def:'Total Body Surface Area — used to estimate extent of burns'},
+  {term:'necrosis',def:'Death of body tissue from inadequate blood supply'},
+  {term:'contusion',def:'Blunt force bruise with intact skin; no break in the surface'},
+];
+
+const fillBlanks = [
+  {sentence:'A wound that involves BLISTERS and a MOIST wound bed is classified as a ___ degree burn.', answer:'second', alt:['2nd','2','second degree'], hint:'Think: blister = partial thickness'},
+  {sentence:'The protein produced by keratinocytes that makes skin waterproof is called ___.', answer:'keratin', alt:['keratin'], hint:'Root word: kerat/o'},
+  {sentence:'A ___ is a localized collection of blood outside blood vessels, forming a raised palpable mass.', answer:'hematoma', alt:['hematoma'], hint:'hemat/o (blood) + -oma (mass)'},
+  {sentence:'During the proliferative phase of wound healing, new ___ tissue forms in the wound bed, appearing beefy-red.', answer:'granulation', alt:['granulation'], hint:'From Latin: granulum (little grain)'},
+  {sentence:'The ABCDE melanoma tool: A = Asymmetry, B = Border, C = Color, D = Diameter, E = ___.', answer:'evolution', alt:['evolution'], hint:'Any change over time'},
+  {sentence:'A ___ is a superficial wound from scraping, involving only the epidermis — no closure required.', answer:'abrasion', alt:['abrasion'], hint:'Latin: abradere (to scrape off)'},
+];
+
+const decodeTerms = [
+  {term:'dermatitis',parts:[{text:'derm/o',type:'dp-root',meaning:'skin'},{text:'-itis',type:'dp-suffix',meaning:'inflammation'}],full:'Inflammation of the skin — can be allergic, contact, or atopic in origin.'},
+  {term:'subcutaneous',parts:[{text:'sub-',type:'dp-prefix',meaning:'below/under'},{text:'cutane/o',type:'dp-root',meaning:'skin'},{text:'-ous',type:'dp-suffix',meaning:'pertaining to'}],full:'Pertaining to beneath the skin (the hypodermis/fat layer). Used for injections and as an anatomical location.'},
+  {term:'melanoma',parts:[{text:'melan/o',type:'dp-root',meaning:'dark/black'},{text:'-oma',type:'dp-suffix',meaning:'tumor/mass'}],full:'Malignant tumor of melanocytes. The most dangerous form of skin cancer — metastasizes rapidly if not caught early.'},
+  {term:'hematoma',parts:[{text:'hemat/o',type:'dp-root',meaning:'blood'},{text:'-oma',type:'dp-suffix',meaning:'mass/collection'}],full:'Localized collection of blood outside blood vessels. Often palpable as a raised, tender mass after trauma.'},
+  {term:'hypodermis',parts:[{text:'hypo-',type:'dp-prefix',meaning:'below/under'},{text:'derm/o',type:'dp-root',meaning:'skin'},{text:'-is',type:'dp-suffix',meaning:'structure'}],full:'Deepest skin layer — primarily adipose tissue. Also called the subcutaneous layer. Target for subcut injections.'},
+  {term:'keratosis',parts:[{text:'kerat/o',type:'dp-root',meaning:'hard/keratinized'},{text:'-osis',type:'dp-suffix',meaning:'abnormal condition'}],full:'Abnormal overgrowth of keratin on the skin surface. Actinic keratosis is a precancerous lesion from UV exposure.'},
+  {term:'necrosis',parts:[{text:'necr/o',type:'dp-root',meaning:'death'},{text:'-osis',type:'dp-suffix',meaning:'condition'}],full:'Death of body tissue from inadequate blood supply, infection, or severe injury. Requires debridement.'},
+];
+
+// Match game init
+let selectedTerm=null, selectedDef=null, matched=0;
+let currentMatchPairs=[];
+
+function initMatch(){
+  matched=0;document.getElementById('matchCount').textContent='0';selectedTerm=null;selectedDef=null;
+  const shuffled=[...matchPairs].sort(()=>Math.random()-.5).slice(0,8);
+  currentMatchPairs=shuffled;
+  const defShuffled=[...shuffled].sort(()=>Math.random()-.5);
+  const tDiv=document.getElementById('matchTerms');
+  const dDiv=document.getElementById('matchDefs');
+  tDiv.innerHTML='';dDiv.innerHTML='';
+  shuffled.forEach((p,i)=>{
+    const t=document.createElement('div');t.className='match-item';t.textContent=p.term;t.dataset.idx=i;
+    t.onclick=()=>selectMatchTerm(t,i);tDiv.appendChild(t);
+  });
+  defShuffled.forEach(p=>{
+    const idx=shuffled.findIndex(x=>x.term===p.term);
+    const d=document.createElement('div');d.className='match-item';d.textContent=p.def;d.dataset.idx=idx;
+    d.onclick=()=>selectMatchDef(d,idx);dDiv.appendChild(d);
+  });
+}
+
+function selectMatchTerm(el,idx){
+  if(el.classList.contains('matched'))return;
+  document.querySelectorAll('#matchTerms .match-item:not(.matched)').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedTerm={el,idx};checkMatch();
+}
+function selectMatchDef(el,idx){
+  if(el.classList.contains('matched'))return;
+  document.querySelectorAll('#matchDefs .match-item:not(.matched)').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedDef={el,idx};checkMatch();
+}
+function checkMatch(){
+  if(!selectedTerm||!selectedDef)return;
+  if(selectedTerm.idx===selectedDef.idx){
+    selectedTerm.el.classList.remove('selected');selectedTerm.el.classList.add('matched');
+    selectedDef.el.classList.remove('selected');selectedDef.el.classList.add('matched');
+    matched++;document.getElementById('matchCount').textContent=matched;
+    selectedTerm=null;selectedDef=null;
+    if(matched===8){setTimeout(()=>alert('🎉 All 8 matched! Click "New Round" for a fresh set.'),200);}
+  } else {
+    selectedTerm.el.classList.add('wrong-flash');selectedDef.el.classList.add('wrong-flash');
+    setTimeout(()=>{
+      [selectedTerm.el,selectedDef.el].forEach(el=>{el.classList.remove('wrong-flash','selected');});
+      selectedTerm=null;selectedDef=null;
+    },600);
+  }
+}
+
+// Fill blanks
+function buildFill(){
+  const container=document.getElementById('fillItems');
+  fillBlanks.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='fill-item';
+    div.innerHTML=`
+      <div class="fill-sentence">${item.sentence}</div>
+      <input class="fill-input" id="fill_${i}" placeholder="type your answer..." autocomplete="off">
+      <button class="fill-check" onclick="checkFill(${i})">Check</button>
+      <div class="fill-hint">${item.hint}</div>
+      <div id="fillfb_${i}" style="font-size:0.82rem;margin-top:8px;display:none;"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+function checkFill(i){
+  const input=document.getElementById(`fill_${i}`);
+  const val=input.value.trim().toLowerCase();
+  const item=fillBlanks[i];
+  const isRight=item.alt.map(a=>a.toLowerCase()).some(a=>val.includes(a));
+  input.className='fill-input '+(isRight?'correct-in':'wrong-in');
+  const fb=document.getElementById(`fillfb_${i}`);
+  fb.style.display='block';
+  fb.style.color=isRight?'var(--correct)':'var(--wrong)';
+  fb.textContent=isRight?'✓ Correct!':'✗ Answer: '+item.answer;
+}
+
+// Decode game
+function buildDecode(){
+  const container=document.getElementById('decodeItems');
+  decodeTerms.forEach((item,i)=>{
+    const partsHtml=item.parts.map(pt=>`<span class="decode-part ${pt.type}" title="${pt.meaning}">${pt.text}</span>`).join(' + ');
+    const div=document.createElement('div');div.className='decode-item';
+    div.innerHTML=`
+      <div class="decode-term">${item.term}</div>
+      <div class="decode-parts">${partsHtml}</div>
+      <button class="decode-reveal" onclick="revealDecode(${i})">Reveal Full Meaning</button>
+      <div id="dec_${i}" class="decode-answer">${item.full}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+function revealDecode(i){
+  const el=document.getElementById(`dec_${i}`);
+  el.classList.toggle('show');
+  const btn=el.previousElementSibling;
+  btn.textContent=el.classList.contains('show')?'Hide Meaning':'Reveal Full Meaning';
+}
+
+function showGame(id){
+  document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.game-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleHint(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('show');
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded',()=>{buildCFU();initMatch();buildFill();buildDecode();});
+</script>
+</body>
+</html>
